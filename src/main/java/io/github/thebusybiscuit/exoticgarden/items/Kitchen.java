@@ -76,10 +76,10 @@ public class Kitchen extends MultiBlockMachine {
                     }
                 }
 
-                Bukkit.getScheduler().runTaskLater(plugin, () -> p.getWorld().playSound(furnace.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 1F, 1F), 55L);
+                ExoticGarden.getFoliaLib().getScheduler().runAtLocationLater(furnace.getLocation(),() -> p.getWorld().playSound(furnace.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 1F, 1F), 55L);
 
                 for (int i = 1; i < 7; i++) {
-                    Bukkit.getScheduler().runTaskLater(plugin, () -> p.getWorld().playSound(furnace.getLocation(), Sound.BLOCK_METAL_PLACE, 7F, 1F), i * 5L);
+                    ExoticGarden.getFoliaLib().getScheduler().runAtLocationLater(furnace.getLocation(), () -> p.getWorld().playSound(furnace.getLocation(), Sound.BLOCK_METAL_PLACE, 7F, 1F), i * 5L);
                 }
 
                 if (furnaceInventory.getResult() == null) {

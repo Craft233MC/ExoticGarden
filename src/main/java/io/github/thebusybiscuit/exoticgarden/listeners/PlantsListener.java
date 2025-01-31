@@ -9,14 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import org.bukkit.Effect;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.Tag;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Rotatable;
@@ -155,7 +148,10 @@ public class PlantsListener implements Listener {
                         }
                     }
                     else {
-                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> pasteTree(e, x, z, tree));
+                        ExoticGarden.getFoliaLib().getScheduler().runAtLocationLater(
+                                new Location(world, x, 0, z),
+                                wrappedTask -> pasteTree(e, x, z, tree),
+                                1);
                     }
                 }
             }
@@ -242,7 +238,10 @@ public class PlantsListener implements Listener {
                         current.setType(Material.OAK_LEAVES, false);
                     }
                     else {
-                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> current.setType(Material.OAK_LEAVES));
+                        ExoticGarden.getFoliaLib().getScheduler().runAtLocationLater(
+                                current.getLocation(),
+                                wrappedTask -> current.setType(Material.OAK_LEAVES)
+                                ,1);
                     }
                     break;
                 case FRUIT, ORE_PLANT, DOUBLE_PLANT:
@@ -254,13 +253,13 @@ public class PlantsListener implements Listener {
                         PlayerHead.setSkin(current, PlayerSkin.fromHashCode(berry.getTexture()), true);
                     }
                     else {
-                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                        ExoticGarden.getFoliaLib().getScheduler().runAtLocationLater(current.getLocation(), wrappedTask -> {
                             current.setType(Material.PLAYER_HEAD);
                             Rotatable s = (Rotatable) current.getBlockData();
                             s.setRotation(faces[random.nextInt(faces.length)]);
                             current.setBlockData(s, false);
                             PlayerHead.setSkin(current, PlayerSkin.fromHashCode(berry.getTexture()), true);
-                        });
+                        },1);
                     }
                     break;
                 default:

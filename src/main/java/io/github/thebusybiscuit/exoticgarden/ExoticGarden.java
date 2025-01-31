@@ -1,5 +1,6 @@
 package io.github.thebusybiscuit.exoticgarden;
 
+import com.tcoded.folialib.FoliaLib;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.github.thebusybiscuit.exoticgarden.items.BonemealableItem;
 import io.github.thebusybiscuit.exoticgarden.items.Crook;
@@ -83,9 +84,12 @@ public class ExoticGarden extends JavaPlugin implements SlimefunAddon {
     private ItemGroup magicalItemGroup;
     private Kitchen kitchen;
 
+    private static FoliaLib folialib;
+
     @Override
     public void onEnable() {
         PaperLib.suggestPaper(this);
+        folialib = new FoliaLib(this);
 
         if (!getServer().getPluginManager().isPluginEnabled("GuizhanLibPlugin")) {
             getLogger().log(Level.SEVERE, "本插件需要 鬼斩前置库插件(GuizhanLibPlugin) 才能运行!");
@@ -471,6 +475,10 @@ public class ExoticGarden extends JavaPlugin implements SlimefunAddon {
     @Override
     public String getBugTrackerURL() {
         return "https://github.com/SlimefunGuguProject/ExoticGarden/issues";
+    }
+
+    public static FoliaLib getFoliaLib() {
+        return folialib;
     }
 
 }
